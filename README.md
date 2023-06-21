@@ -1,16 +1,27 @@
 # tree-recovery-by-dynamic-programming
 Code for the TPAMI paper: Tree Recovery by Dynamic Programming
 
-# Input Data
-This code requires two inputs:
-* The input graph, in the form of a `.ply` file.
+## Usage
+This code requires two inputs (described in the `Input Data` section):
+* Input graph, in the form of a `.ply` file.
 * Partition costs, in the form of a `.txt` file.
+
+Use `tree-recovery.py <input graph path> <partition costs path>` to run the optimal Dynamic Programming algorithm. If you wish to use the beam search version, run `tree-recovery.py <input graph path> <partition costs path> <beam width>`
+
+Examples:
+* `tree-recovery.py ./datasets/rice/graph_01.ply ./datasets/rice/graph_01.txt`
+* `tree-recovery.py ./datasets/wide/graph_11.ply ./datasets/wide/graph_11.txt 10`
+
+## Input Data
+
 The format is described below. You can also look at the accompanying datasets for examples on the format. 
 
-## Input Graph Format
+### Input Graph Format
 The input graph is in the form of a [`.ply` file](https://en.wikipedia.org/wiki/PLY_(file_format)). The main requirement is an `edge` element for the edges. This element must have 3 properties: `vertex1` and `vertex2` for the unordered vertices of the edge, and `name`. The `name` is a label for the edge, and will be used to describe the partitions. 
 
-## Input Costs Format
+If you plan on using beam search, then you should have a `vertex` element with properties `x` and `y` for coordinates. A `z` property should also be added for 3D datasets.
+
+### Input Costs Format
 The input costs file describes both the available partition candidates at each node and their costs.
 * The i'th line in the file describes the partitions/costs for the i'th node in the graph.
 * Each line has semicolon-separated partition candidates.
@@ -23,8 +34,8 @@ The input costs file describes both the available partition candidates at each n
 
 For example, suppose the file is as follows:
 
-    2 4, 0 0, 0 0, 0.5
-    4 6 1, 0 0 0, 1 0 0, 0.1;4 6 1, 0 0 0, 0 1 0, 0.1;4 6 1, 0 1 1, 1 1 0, 0.3;
+    2 4, 0 0, 0 0, 0.5;
+    4 6 1, 0 0 0, 1 0 0, 0.1; 4 6 1, 0 0 0, 0 1 0, 0.1; 4 6 1, 0 1 1, 1 1 0, 0.3;
 
 Node 0 has one partition candidate. It has the edges 2 and 4. Both edges are assigned to the same set in the partition (the partition is {{2 4}}). Both of them are outgoing edges, meaning this is the root node. The cost of this partition is 0.5. 
 
