@@ -10,6 +10,34 @@ import partitions
 import dpartitions
 
 
+def get_new_name(g, e, part0, part1):
+    oneind = 0
+    for i in range(len(part0)):
+        if g.edges[e]['name'] in part0[i]:
+            oneind = i
+            break
+    twoind = 0
+    for i in range(len(part1)):
+        if g.edges[e]['name'] in part1[i]:
+            twoind = i
+            break
+    return ((e[0], oneind), (e[1], twoind))
+
+
+def get_tree(g):
+    # Make tree
+    t = nx.Graph()
+    for e in g.edges(keys=True):
+        t.add_edge(*get_new_name(g, e, g.nodes[e[0]]['partition'].partition, g.nodes[e[1]]['partition'].partition))
+
+    # Relabel nodes
+    nodes = sorted(t)
+    nlist = [n for n in nodes if n[1] == 0]
+    nlist += [n for n in nodes if n[1] != 0] # "copied" nodes go at the end
+    nx.relabel_nodes(t, {nlist[i]:(i+1) for i in range(len(nlist))}, copy=False)
+    return t
+
+
 def load_costs(file_name, G):
     # This loads both the costs and the partitions
     costs = {n:{} for n in G}

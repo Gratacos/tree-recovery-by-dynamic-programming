@@ -15,8 +15,8 @@ if __name__ == "__main__":
         costs_fname = sys.argv[2]
         beam_width = float('inf')
     else:
-        graph_fname = "../../2d_datasets/rice/graph_01.ply"
-        costs_fname = "../../2d_datasets/rice/graph_01.txt"
+        graph_fname = "D:/Documents/Reps/2d_datasets/rice/graph_01.ply"
+        costs_fname = "D:/Documents/Reps/2d_datasets/rice/graph_01.txt"
         beam_width = 1#float('inf')
 
     # Load graph (command line argument 1)
@@ -62,4 +62,12 @@ if __name__ == "__main__":
     partitiongraph.calculate_optimal(G, new_cost)
     backtrackeds =  partitiongraph.backtrack_erosion(G, backtrack, directed=True, bits=True)
 
+    # We have the partitions, with that we can construct our output tree:
+    T = skel_help.get_tree(G)
 
+
+    # Save file
+    out_fname = graph_fname.split('.')
+    out_fname[-2] += '_tree'
+    out_fname = '.'.join(out_fname)
+    skel_help.graph_to_ply(T, out_fname)
