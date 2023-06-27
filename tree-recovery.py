@@ -24,6 +24,8 @@ if __name__ == "__main__":
     nodes = sorted(G)
     networkx.relabel_nodes(G, {nodes[i]:(i+1) for i in range(len(nodes))}, copy=False)
     G = partitiongraph.PGraph(G)
+
+    og_G = G.copy() # To keep attributes
     
 
     # Load costs (command line argument 2)
@@ -63,7 +65,7 @@ if __name__ == "__main__":
     backtrackeds =  partitiongraph.backtrack_erosion(G, backtrack, directed=True, bits=True)
 
     # We have the partitions, with that we can construct our output tree:
-    T = skel_help.get_tree(G)
+    T = skel_help.get_tree(G, og_G)
 
 
     # Save file

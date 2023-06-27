@@ -24,11 +24,23 @@ def get_new_name(g, e, part0, part1):
     return ((e[0], oneind), (e[1], twoind))
 
 
-def get_tree(g):
+def get_tree(g, og_g=None):
     # Make tree
     t = nx.Graph()
     for e in g.edges(keys=True):
         t.add_edge(*get_new_name(g, e, g.nodes[e[0]]['partition'].partition, g.nodes[e[1]]['partition'].partition))
+
+    if og_g is not None:
+        # Add attributes from the input graph, og_g:
+        for e in t.edges():
+            og_e = (e[0][0], e[1][0], 0)
+            for k in og_g.edges[og_e]:
+                t.edges[e][k] = og_g.edges[og_e][k]
+        
+        for n in t.nodes():
+            og_n = n[0]
+            for k in og_g.nodes[og_n]:
+                t.nodes[n][k] = og_g.nodes[og_n][k]
 
     # Relabel nodes
     nodes = sorted(t)
