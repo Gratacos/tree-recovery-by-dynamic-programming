@@ -14,9 +14,9 @@ if __name__ == "__main__":
         graph_fname = sys.argv[1]
         costs_fname = sys.argv[2]
         beam_width = float('inf')
-    else:
-        graph_fname = "D:/Documents/Reps/2d_datasets/rice/graph_01.ply"
-        costs_fname = "D:/Documents/Reps/2d_datasets/rice/graph_01.txt"
+    else: 
+        graph_fname = "D:/Documents/Reps/tree-recovery-by-dynamic-programming/tree-recovery-by-dynamic-programming/datasets/full_datasets/wide/graph_01_l.ply"
+        costs_fname = "D:/Documents/Reps/tree-recovery-by-dynamic-programming/tree-recovery-by-dynamic-programming/datasets/full_datasets/wide/graph_01_costs.txt"
         beam_width = 1#float('inf')
 
     # Load graph (command line argument 1)
