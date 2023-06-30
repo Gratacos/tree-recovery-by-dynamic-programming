@@ -1,6 +1,10 @@
 # tree-recovery-by-dynamic-programming
 Code for the TPAMI paper: Tree Recovery by Dynamic Programming
 
+## Setup
+
+This project was tested with [Python 3.9.12](https://www.python.org/). Once Python is installed, the required packages can be installed using `pip install -r requirements.txt`. 
+
 ## Usage
 This code requires two inputs (described in the `Input Data` section):
 * Input graph, in the form of a `.ply` file.
@@ -9,8 +13,8 @@ This code requires two inputs (described in the `Input Data` section):
 Use `tree-recovery.py <input graph path> <partition costs path>` to run the optimal Dynamic Programming algorithm. If you wish to use the beam search version, run `tree-recovery.py <input graph path> <partition costs path> <beam width>`
 
 Examples:
-* `tree-recovery.py ./datasets/rice/graph_01.ply ./datasets/rice/graph_01.txt`
-* `tree-recovery.py ./datasets/wide/graph_11.ply ./datasets/wide/graph_11.txt 10`
+* `tree-recovery.py ./datasets/truncated_datasets/rice/graph_01.ply ./datasets/rice/graph_01_costs.txt`
+* `tree-recovery.py ./datasets/truncated_datasets/wide/graph_11.ply ./datasets/wide/graph_11_costs.txt 10`
 
 ## Input Data
 
